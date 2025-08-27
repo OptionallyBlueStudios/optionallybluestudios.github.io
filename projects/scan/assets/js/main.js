@@ -5,9 +5,11 @@ class SpoilerImg extends HTMLElement {
 
     // Check if this spoiler is marked as final via attribute
     const isFinal = this.hasAttribute("final") && this.getAttribute("final") === "true";
+    // Check if this spoiler is marked as airender via attribute
+    const isAiRender = this.hasAttribute("airender") && this.getAttribute("airender") === "true";
 
     this.outerHTML = `
-      <div class="spoiler-container is-hidden ${isFinal ? "final-spoiler" : ""}">
+      <div class="spoiler-container is-hidden ${isFinal ? "final-spoiler" : ""} ${isAiRender ? "airender-spoiler" : ""}">
         <img src="${src}" alt="${alt}" class="spoiler-img">
         <div class="spoiler-overlay" role="button" tabindex="0" aria-pressed="false" aria-label="Spoiler. Click to reveal.">
           <svg width="48" height="48" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -57,14 +59,14 @@ if (bigOverlay) {
   });
 }
 
-// Inject CSS for final-spoiler into the page
+// Inject CSS for final-spoiler and airender-spoiler into the page
 const style = document.createElement("style");
 style.textContent = `
   .final-spoiler .spoiler-img {
     position: relative;
     border: 4px solid transparent;
     border-radius: 12px;
-    background-image: linear-gradient(white, white), 
+    background-image: linear-gradient(white, white),
                       linear-gradient(45deg, gold, orange, gold);
     background-origin: border-box;
     background-clip: content-box, border-box;
@@ -76,6 +78,12 @@ style.textContent = `
     0%   { box-shadow: 0 0 10px rgba(255, 215, 0, 0.6), 0 0 20px rgba(255, 255, 0, 0.3); }
     50%  { box-shadow: 0 0 20px rgba(255, 215, 0, 0.9), 0 0 40px rgba(255, 255, 0, 0.5); }
     100% { box-shadow: 0 0 10px rgba(255, 215, 0, 0.6), 0 0 20px rgba(255, 255, 0, 0.3); }
+  }
+
+  .airender-spoiler .spoiler-img {
+    border: 4px solid #a464c2; /* Solid purple border */
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(164, 100, 194, 0.7); /* Purple glow */
   }
 `;
 document.head.appendChild(style);
