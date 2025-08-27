@@ -86,13 +86,16 @@
         <h1>OptionallyBlueStudios</h1>
         <br>
         <br>
-        <button>About</button>
+        <button onclick="openpage('about')">About</button>
         <br>
-        <button>Projects</button>
+        <button onclick="openpage('projects')">Projects</button>
         <br>
-        <button>Join us</button>
+        <button onclick="openpage('join')">Join us</button>
     </div>
     <script>
+        function openpage(url) {
+            window.location.href = url
+        }
         async function loadAnnouncements() {
             try {
                 // Replace this URL with your GitHack URL for the txt file

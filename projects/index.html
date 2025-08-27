@@ -86,23 +86,26 @@
         <h1>Our Projects</h1>
         <br>
         <br>
-        <button>S.C.A.N. (The game)</button>
+        <button onclick="openpage('scan')">S.C.A.N. (The game)</button>
         <br>
-        <button>Deltarune: Discarded</button>
+        <button onclick="openpage('discarded')">Deltarune: Discarded</button>
         <br>
-        <button>Unwall Proxy</button>
+        <button onclick="openpage('https://unwall-proxy.github.io')">Unwall Proxy</button>
         <br>
-        <button>ProsperBrowse</button>
+        <button onclick="openpage('https://github.com/ProsperBrowse')">ProsperBrowse</button>
         <br>
-        <button>Satiscraftory</button>
+        <button onclick="openpage('http://141.147.118.157:8080/satiscraftory/')">Satiscraftory</button>
         <br>
-        <button>RedOptionStudios</button>
+        <button onclick="openpage('https://red-option-studios.github.io/')">RedOptionStudios</button>
         <br>
-        <button>Cell Machiene Online</button>
+        <button onclick="openpage('https://cellmachiene-mystic.neocities.org/Cmmm')">Cell Machiene Online</button>
         <br>
-        <button>MultyPlat (Archived)</button>
+        <button onclick="openpage('https://github.com/MultyPlat')">MultyPlat (Archived)</button>
     </div>
     <script>
+        function openpage(url) {
+            window.location.href = url
+        }
         async function loadAnnouncements() {
             try {
                 // Replace this URL with your GitHack URL for the txt file
