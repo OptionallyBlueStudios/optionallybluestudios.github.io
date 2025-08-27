@@ -86,11 +86,13 @@
         <h1>OptionallyBlueStudios</h1>
         <br>
         <br>
-        <button onclick="openpage('about')">About</button>
+        <button onclick="openpage('events/botd')" style="width: 500px; background-color: rgb(212, 77, 47);">[EVENT] Battle Of The Devs</button>
         <br>
-        <button onclick="openpage('projects')">Projects</button>
+        <button onclick="openpage('projects')" style="width: 420px;">Projects</button>
         <br>
-        <button onclick="openpage('join')">Join us</button>
+        <button onclick="openpage('join')" style="width: 330px;">Join us</button>
+        <br>
+        <button onclick="openpage('about')" style="width: 250px;">About</button>
     </div>
     <script>
         function openpage(url) {
@@ -138,7 +140,7 @@
             } catch (error) {
                 console.error('Error loading announcements:', error);
                 const announcementElement = document.getElementById('announcement-text');
-                announcementElement.innerHTML = 'Join with us for the <a href="https://optionallybluestudios.github.io/Events/botd" class="botd-link">Battle Of The Devs</a> event! • <a href="https://optb.short.gy/discord">Join our discord!</a>';
+                announcementElement.innerHTML = '<h3>Loading announcements.. Please stand by. If this is taking too long, please check your internet connection and GitHack status before reaching out to the developers to report an issue.</h3>';
                 startScrolling();
             }
         }
@@ -170,6 +172,53 @@
         
         // Load announcements when page loads
         window.addEventListener('load', loadAnnouncements);
+        // Create audio objects for sounds
+const hoverSound = new Audio('sounds/hover.wav');
+const clickSound = new Audio('sounds/click.wav');
+
+// Set volume (optional)
+hoverSound.volume = 0.3;
+clickSound.volume = 0.5;
+
+// Get all buttons
+const buttons = document.querySelectorAll('button');
+
+// Add event listeners to each button
+buttons.forEach(button => {
+    // Hover effect
+    button.addEventListener('mouseenter', () => {
+        button.style.transform = 'scale(1.1)';
+        button.style.boxShadow = '0 4px 15px rgba(255, 255, 255, 0.2)';
+        button.style.transition = 'transform 0.3s ease, box-shadow 0.3s ease';
+        
+        // Play hover sound
+        hoverSound.currentTime = 0; // Reset sound to beginning
+        hoverSound.play().catch(e => console.log('Hover sound failed:', e));
+    });
+    
+    // Remove hover effect
+    button.addEventListener('mouseleave', () => {
+        button.style.transform = 'scale(1)';
+        button.style.boxShadow = 'none';
+    });
+    
+    // Click effect
+    button.addEventListener('mousedown', () => {
+        button.style.transform = 'scale(1.05)';
+    });
+    
+    // Click sound and reset scale
+    button.addEventListener('click', () => {
+        // Play click sound
+        clickSound.currentTime = 0;
+        clickSound.play().catch(e => console.log('Click sound failed:', e));
+        
+        // Reset to hover scale
+        setTimeout(() => {
+            button.style.transform = 'scale(1.1)';
+        }, 100);
+    });
+});
     </script>
 </body>
 </html>

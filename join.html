@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OptionallyBlueStudios | Projects</title>
+    <title>OptionallyBlueStudios</title>
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Pixelify+Sans:wght@400..700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
         body {
@@ -70,7 +70,7 @@
             background-color: grey;
             border-radius: 10px;
             height: 40px;
-            width: 400px;
+            width: 300px;
             border-color: black;
             color: white;
             font-family: "Pixelify Sans", sans-serif;
@@ -83,26 +83,7 @@
         <h3 id="announcement-text">Loading announcements...</h3>
     </div>
     <div class="content">
-        <h1>Our Projects</h1>
-        <br>
-        <br>
-        <button onclick="openpage('scan')">S.C.A.N. (The game)</button>
-        <br>
-        <button onclick="openpage('discarded')">Deltarune: Discarded</button>
-        <br>
-        <button onclick="openpage('bluehub-repo')">BlueHub</button>
-        <br>
-        <button onclick="openpage('https://unwall-proxy.github.io')">Unwall Proxy</button>
-        <br>
-        <button onclick="openpage('https://github.com/ProsperBrowse')">ProsperBrowse</button>
-        <br>
-        <button onclick="openpage('http://141.147.118.157:8080/satiscraftory/')">Satiscraftory</button>
-        <br>
-        <button onclick="openpage('https://red-option-studios.github.io/')">RedOptionStudios</button>
-        <br>
-        <button onclick="openpage('https://cellmachiene-mystic.neocities.org/Cmmm')">Cell Machiene Online</button>
-        <br>
-        <button onclick="openpage('https://github.com/MultyPlat')">MultyPlat (Archived)</button>
+        <div style="width:100%;height:500px;" data-fillout-id="dTJtZjv76ous" data-fillout-embed-type="standard" data-fillout-inherit-parameters data-fillout-dynamic-resize></div><script src="https://server.fillout.com/embed/v1/"></script>
     </div>
     <script>
         function openpage(url) {
@@ -150,7 +131,7 @@
             } catch (error) {
                 console.error('Error loading announcements:', error);
                 const announcementElement = document.getElementById('announcement-text');
-                announcementElement.innerHTML = '<h3>Loading announcements.. Please stand by. If this is taking too long, please check your internet connection and GitHack status before reaching out to the developers to report an issue.</h3>';
+                announcementElement.innerHTML = 'Join with us for the <a href="https://optionallybluestudios.github.io/Events/botd" class="botd-link">Battle Of The Devs</a> event! • <a href="https://optb.short.gy/discord">Join our discord!</a>';
                 startScrolling();
             }
         }
@@ -182,53 +163,6 @@
         
         // Load announcements when page loads
         window.addEventListener('load', loadAnnouncements);
-        // Create audio objects for sounds
-const hoverSound = new Audio('sounds/hover.wav');
-const clickSound = new Audio('sounds/click.wav');
-
-// Set volume (optional)
-hoverSound.volume = 0.3;
-clickSound.volume = 0.5;
-
-// Get all buttons
-const buttons = document.querySelectorAll('button');
-
-// Add event listeners to each button
-buttons.forEach(button => {
-    // Hover effect
-    button.addEventListener('mouseenter', () => {
-        button.style.transform = 'scale(1.1)';
-        button.style.boxShadow = '0 4px 15px rgba(255, 255, 255, 0.2)';
-        button.style.transition = 'transform 0.3s ease, box-shadow 0.3s ease';
-        
-        // Play hover sound
-        hoverSound.currentTime = 0; // Reset sound to beginning
-        hoverSound.play().catch(e => console.log('Hover sound failed:', e));
-    });
-    
-    // Remove hover effect
-    button.addEventListener('mouseleave', () => {
-        button.style.transform = 'scale(1)';
-        button.style.boxShadow = 'none';
-    });
-    
-    // Click effect
-    button.addEventListener('mousedown', () => {
-        button.style.transform = 'scale(1.05)';
-    });
-    
-    // Click sound and reset scale
-    button.addEventListener('click', () => {
-        // Play click sound
-        clickSound.currentTime = 0;
-        clickSound.play().catch(e => console.log('Click sound failed:', e));
-        
-        // Reset to hover scale
-        setTimeout(() => {
-            button.style.transform = 'scale(1.1)';
-        }, 100);
-    });
-});
     </script>
 </body>
 </html>

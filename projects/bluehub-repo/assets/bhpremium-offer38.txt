@@ -1,0 +1,5 @@
+http://141.147.118.157:5678/webhook/03d776ed-329e-495a-b5bc-792c8c606c6f?username=YOURUSERNAME&email=YOUR@EMAIL.ADDRESS&name=YOURNAME
+
+replace YOURUSERNAME with your preferred username and MAKE IT UNIQUE. if someone signs up with the same username as you.. they get your password...
+replace YOUR@EMAIL.ADDRESS with your email ADDRESS
+replace YOURNAME with your name
