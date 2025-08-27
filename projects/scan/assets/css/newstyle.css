@@ -1,0 +1,134 @@
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Pixelify Sans', monospace;
+      background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+      color: #fff;
+      min-height: 200vh;
+      overflow-x: hidden;
+      position: relative;
+      text-align: center;
+    }
+
+    main { display:flex; flex-direction:column; justify-content:center; align-items:center; min-height:100vh; position:relative; z-index:10; }
+
+    .main-texts h3 { font-size:1.2rem; color:#ff6b6b; margin-bottom:10px; letter-spacing:2px; text-shadow:0 0 10px rgba(255,107,107,0.5); }
+    .main-texts h3 span { color:#ff4757; font-weight:700; text-shadow:0 0 15px rgba(255,71,87,0.8); }
+    .main-texts h1 { font-size:4rem; font-weight:700; margin:20px 0; color:#fff; text-shadow:0 0 20px rgba(255,255,255,0.3); letter-spacing:3px; }
+    .main-texts p { font-size:1.1rem; color:#ccc; margin-bottom:30px; text-shadow:0 0 5px rgba(255,255,255,0.2); }
+
+    .links ul { list-style:none; display:flex; gap:15px; }
+    ul { list-style:none; padding-left:0; margin-left:0; }
+
+    .btn-play-now, .btn-read-more {
+      display:inline-block; padding:15px 30px; background:linear-gradient(45deg,#ff4757,#ff6b6b);
+      color:#fff; text-decoration:none; border-radius:5px; font-weight:600; font-size:1rem; letter-spacing:1px;
+      transition:all 0.3s ease; box-shadow:0 5px 15px rgba(255,71,87,0.4); border:2px solid transparent;
+    }
+
+    .btn-play-now:hover, .btn-read-more:hover {
+      background:linear-gradient(45deg,#ff3742,#ff5757); transform:translateY(-2px); box-shadow:0 8px 25px rgba(255,71,87,0.6);
+      border-color:rgba(255,255,255,0.3);
+    }
+
+    .gradient-overlay {
+      position: fixed; bottom: 0; left: 0; width: 100%; height: 60vh;
+      background: linear-gradient(to top,
+        rgba(0,0,0,1) 0%,
+        rgba(0,0,0,0.9) 20%,
+        rgba(0,0,0,0.7) 40%,
+        rgba(0,0,0,0.4) 60%,
+        rgba(0,0,0,0.2) 80%,
+        transparent 100%);
+      pointer-events: none; z-index:15; transition:opacity 0.6s ease;
+    }
+
+    .spoiler-content { position: relative; margin-top: 100vh; width: 100%; padding: 50px 20px; text-align: center; z-index:5; }
+    .spoiler-content h2 { font-size:2.5rem; color:#ff4757; text-shadow:0 0 15px rgba(255,71,87,0.6); margin-bottom:30px; animation: flicker 2s infinite alternate; }
+    @keyframes flicker { 0%,100%{opacity:1} 50%{opacity:0.7} }
+    .spoiler-text { font-size:1.2rem; color:#999; max-width:800px; margin:0 auto; line-height:1.8; }
+
+    body::before {
+      content:''; position:fixed; top:0; left:0; width:100%; height:100%;
+      background:
+        radial-gradient(circle at 20% 80%, rgba(255,71,87,0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255,107,107,0.1) 0%, transparent 50%);
+      pointer-events:none; z-index:1;
+    }
+
+    @media (max-width:768px) {
+      .main-texts h1 { font-size:2.5rem; }
+      .main-texts h3 { font-size:1rem; }
+      .spoiler-content h2 { font-size:2rem; }
+    }
+
+    .botd-link { color:#4fc3f7; cursor:pointer; font-weight:bold; text-decoration:none; transition:color 0.3s ease; }
+    .botd-link:hover { color:#81d4fa; text-shadow:0 0 8px rgba(79,195,247,0.6); }
+
+    /* -----------------------
+       Spoiler image + overlay
+       ----------------------- */
+    .spoiler-container {
+      width: 320px;
+      max-width: 90%;
+      margin: 30px auto 0;
+      position: relative;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+      z-index: 6;
+    }
+
+    .spoiler-container img {
+      display: block;
+      width: 100%;
+      height: auto;
+      vertical-align: middle;
+      transition: filter 300ms ease, transform 300ms ease;
+    }
+
+    .spoiler-container.is-hidden .spoiler-img {
+      filter: blur(6px) brightness(0.8);
+      transform: scale(1.02);
+    }
+
+    .spoiler-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      background: rgba(0,0,0,0.45);
+      backdrop-filter: blur(3px);
+      -webkit-backdrop-filter: blur(3px);
+      cursor: pointer;
+      transition: opacity 350ms ease, visibility 350ms ease;
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+
+    .spoiler-overlay.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .spoiler-overlay .label {
+      color: #fff;
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: 0.85rem;
+      letter-spacing: 1px;
+      text-shadow: 0 0 8px rgba(0,0,0,0.6);
+    }
+
+    .spoiler-overlay:focus {
+      outline: 3px solid rgba(255,71,87,0.6);
+      outline-offset: 2px;
+    }
+
+    @media (max-width:420px) {
+      .spoiler-overlay { flex-direction: column; gap: 6px; padding: 10px; }
+    }

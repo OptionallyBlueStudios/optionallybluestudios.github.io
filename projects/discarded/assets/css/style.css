@@ -1,0 +1,97 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    color: #fff;
+}
+
+:root{
+    --text-color-prim: #FFC700;
+    --text-color-seg: #040101;
+}
+
+li{
+    list-style: none;
+}
+
+body{
+    height: 100vh;
+
+    background: black url(../img/image.png) no-repeat;
+    background-size: cover;
+    background-position: center;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-family: 'Pixelify Sans', sans-serif;
+}
+
+main{
+    text-align: center;
+    margin-bottom: 300px;
+}
+
+.main-texts h3{
+    font-family: '', sans-serif;
+    font-size: 16px;
+    color: #fff;  
+}
+
+.main-texts span{
+    color: var(--text-color-prim);
+}
+
+.main-texts h1{
+    font-size: 64px;
+    font-weight: 300;
+    color: var(--text-color-prim);
+    font-family: 'Pixelify Sans', sans-serif;
+    line-height: 80px;
+}
+
+.main-texts p{
+    font-size: 20px;
+    color: #fff;
+    opacity: .7;
+}
+
+.links {
+    padding-top: 72px;
+}
+
+ .links li {
+    display: inline-block;
+    margin: 0 0 0 15px;
+}
+
+.links a{
+    padding: 12px 32px;
+    font-weight: bold;
+    font-size: 20px;
+    color: #fff;
+    opacity: .7;
+    text-transform: uppercase;
+}
+
+.links .btn-play-now{
+    background-color: var(--text-color-prim);
+    color: var(--text-color-seg);
+    text-decoration: none;
+    
+    opacity: 1;
+}
+
+.links .btn-read-more{
+    transition: background .2s;
+}
+
+
+.links .btn-read-more:hover{
+    background-color: var(--text-color-prim);
+    text-decoration: none;
+    color: var(--text-color-seg);
+    opacity: 1;
+}
+
