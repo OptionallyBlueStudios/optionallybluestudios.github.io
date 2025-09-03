@@ -80,12 +80,16 @@ if (bigOverlay) {
 // Inject CSS for grid layout and spoiler styles
 const style = document.createElement("style");
 style.textContent = `
-  /* Auto-detect containers with spoiler-img elements and make them grids */
-  body:has(spoiler-img),
-  div:has(spoiler-img),
-  section:has(spoiler-img),
-  article:has(spoiler-img),
-  main:has(spoiler-img) {
+  /* Grid layout for spoiler containers */
+  .spoiler-grid {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)) !important;
+    gap: 20px !important;
+    padding: 20px !important;
+  }
+  
+  /* Fallback: if no grid class is applied, try to detect spoiler containers */
+  body:has(.spoiler-container) {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 20px;
@@ -99,6 +103,7 @@ style.textContent = `
     border-radius: 12px;
     overflow: hidden;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
+    display: block;
   }
   
   .spoiler-container:hover {
@@ -153,26 +158,20 @@ style.textContent = `
   
   /* Responsive adjustments */
   @media (max-width: 768px) {
-    body:has(spoiler-img),
-    div:has(spoiler-img),
-    section:has(spoiler-img),
-    article:has(spoiler-img),
-    main:has(spoiler-img) {
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 15px;
-      padding: 15px;
+    .spoiler-grid,
+    body:has(.spoiler-container) {
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)) !important;
+      gap: 15px !important;
+      padding: 15px !important;
     }
   }
   
   @media (max-width: 480px) {
-    body:has(spoiler-img),
-    div:has(spoiler-img),
-    section:has(spoiler-img),
-    article:has(spoiler-img),
-    main:has(spoiler-img) {
-      grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
-      padding: 10px;
+    .spoiler-grid,
+    body:has(.spoiler-container) {
+      grid-template-columns: repeat(2, 1fr) !important;
+      gap: 10px !important;
+      padding: 10px !important;
     }
   }
   
