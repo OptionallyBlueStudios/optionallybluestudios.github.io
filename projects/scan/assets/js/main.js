@@ -1,3 +1,5 @@
+// Moved to html
+
 class SpoilerImg extends HTMLElement {
   connectedCallback() {
     const src = this.getAttribute("src");
