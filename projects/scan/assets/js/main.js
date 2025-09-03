@@ -77,105 +77,9 @@ if (bigOverlay) {
   });
 }
 
-// Inject CSS for grid layout and spoiler styles
+// Inject CSS for final-spoiler and airender-spoiler into the page
 const style = document.createElement("style");
 style.textContent = `
-  /* Grid layout for spoiler containers */
-  .spoiler-grid {
-    display: grid !important;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)) !important;
-    gap: 20px !important;
-    padding: 20px !important;
-  }
-  
-  /* Fallback: if no grid class is applied, try to detect spoiler containers */
-  body:has(.spoiler-container) {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 20px;
-    padding: 20px;
-  }
-  
-  /* Ensure spoiler containers fit nicely in the grid */
-  .spoiler-container {
-    position: relative;
-    aspect-ratio: 1;
-    border-radius: 12px;
-    overflow: hidden;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    display: block;
-  }
-  
-  .spoiler-container:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-  }
-  
-  .spoiler-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 8px;
-  }
-  
-  .spoiler-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.8);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: background 0.3s ease;
-    border-radius: 12px;
-  }
-  
-  .spoiler-overlay:hover {
-    background: rgba(0, 0, 0, 0.9);
-  }
-  
-  .spoiler-overlay.hidden {
-    opacity: 0;
-    pointer-events: none;
-  }
-  
-  .spoiler-overlay .label {
-    color: white;
-    font-size: 14px;
-    font-weight: 600;
-    margin-top: 8px;
-    text-align: center;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-  }
-  
-  .is-hidden .spoiler-img {
-    filter: blur(20px);
-  }
-  
-  /* Responsive adjustments */
-  @media (max-width: 768px) {
-    .spoiler-grid,
-    body:has(.spoiler-container) {
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)) !important;
-      gap: 15px !important;
-      padding: 15px !important;
-    }
-  }
-  
-  @media (max-width: 480px) {
-    .spoiler-grid,
-    body:has(.spoiler-container) {
-      grid-template-columns: repeat(2, 1fr) !important;
-      gap: 10px !important;
-      padding: 10px !important;
-    }
-  }
-  
-  /* Special styling for final and airender spoilers */
   .final-spoiler .spoiler-img {
     position: relative;
     border: 4px solid transparent;
@@ -187,17 +91,15 @@ style.textContent = `
     animation: sparkleBorder 2s infinite;
     box-shadow: 0 0 15px rgba(255, 215, 0, 0.7);
   }
-  
   @keyframes sparkleBorder {
     0%   { box-shadow: 0 0 10px rgba(255, 215, 0, 0.6), 0 0 20px rgba(255, 255, 0, 0.3); }
     50%  { box-shadow: 0 0 20px rgba(255, 215, 0, 0.9), 0 0 40px rgba(255, 255, 0, 0.5); }
     100% { box-shadow: 0 0 10px rgba(255, 215, 0, 0.6), 0 0 20px rgba(255, 255, 0, 0.3); }
   }
-  
   .airender-spoiler .spoiler-img {
-    border: 4px solid #a464c2;
+    border: 4px solid #a464c2; /* Solid purple border */
     border-radius: 12px;
-    box-shadow: 0 0 15px rgba(164, 100, 194, 0.7);
+    box-shadow: 0 0 15px rgba(164, 100, 194, 0.7); /* Purple glow */
   }
 `;
 document.head.appendChild(style);
