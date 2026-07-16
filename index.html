@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script 
-        src="https://optionallybluestudios.github.io/consent-manager/manager.js" 
-        data-ga4="G-H16QDLEK4E" 
-        data-clarity="xmyqmw6u9z" 
-        <!-- data-glitchtip-dsn="https://your-glitchtip-dsn-url" -->
+    <script
+        src="https://cdn.jsdelivr.net/gh/OptionallyBlueStudios/consent-manager@master/manager.js"
+        data-ga4="G-B2J8NDB8SW"
+        data-clarity="xmyqmw6u9z"
+        data-glitchtip-dsn="https://48c88e72ffac4be29fa2144d9d7ad8f9@staff-glitchtip.optb.qzz.io/3"
         defer>
     </script>
     <title>OptionallyBlueStudios</title>
@@ -83,6 +83,110 @@
             font-family: "Pixelify Sans", sans-serif;
             font-size: 30px;
         }
+
+        .staff-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            width: auto;
+            min-width: 140px;
+            padding: 0 18px;
+            font-size: 20px;
+            height: 46px;
+            background: linear-gradient(135deg, #5d6dff, #3f51b5);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .staff-modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.7);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            padding: 20px;
+        }
+
+        .staff-modal.active {
+            display: flex;
+        }
+
+        .staff-modal-card {
+            width: min(460px, 100%);
+            background: #23222c;
+            border: 2px solid #4b4b63;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 14px 35px rgba(0, 0, 0, 0.35);
+        }
+
+        .staff-modal-card h2 {
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-family: "Pixelify Sans", sans-serif;
+        }
+
+        .staff-modal-card p {
+            margin-top: 0;
+            margin-bottom: 16px;
+            color: #d8d8e0;
+        }
+
+        .staff-modal-card input {
+            width: 100%;
+            padding: 10px 12px;
+            border-radius: 8px;
+            border: 1px solid #6a6a84;
+            background: #15151b;
+            color: #fff;
+            margin-bottom: 12px;
+            box-sizing: border-box;
+        }
+
+        .staff-modal-card button {
+            width: 100%;
+            height: 42px;
+            font-size: 20px;
+            margin: 4px 0;
+        }
+
+        .staff-menu {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            background: #23222c;
+            border: 1px solid #4b4b63;
+            border-radius: 12px;
+            padding: 10px;
+            min-width: 240px;
+            display: none;
+            z-index: 1500;
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.25);
+        }
+
+        .staff-menu.active {
+            display: block;
+        }
+
+        .staff-menu a {
+            display: block;
+            color: #8ec5ff;
+            text-decoration: none;
+            padding: 8px 6px;
+            border-radius: 6px;
+        }
+
+        .staff-menu a:hover {
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .staff-menu .note {
+            font-size: 13px;
+            color: #b7b7c2;
+            padding: 6px;
+        }
     </style>
 </head>
 <body>
@@ -101,6 +205,19 @@
         <br>
         <button onclick="openpage('about')" style="width: 250px;">About</button>
     </div>
+
+    <button id="staff-access-button" class="staff-button" type="button" style="display: none;">Staff</button>
+    <div id="staff-modal" class="staff-modal" role="dialog" aria-modal="true" aria-labelledby="staff-modal-title">
+        <div class="staff-modal-card">
+            <h2 id="staff-modal-title">Staff access</h2>
+            <p>Please enter your staff access code.</p>
+            <input id="staff-code-input" type="password" placeholder="Enter access code" autocomplete="off" />
+            <button id="staff-submit-button" type="button">Unlock</button>
+            <button id="staff-close-button" type="button">Cancel</button>
+        </div>
+    </div>
+    <div id="staff-menu" class="staff-menu"></div>
+
     <script>
         function openpage(url) {
             window.location.href = url
@@ -225,6 +342,119 @@ buttons.forEach(button => {
             button.style.transform = 'scale(1.1)';
         }, 100);
     });
+});
+
+const STAFF_ACCESS_CODE = 'El987695231569562_';
+const STAFF_PAYLOAD_URL = 'staff-links-encrypted.json';
+
+function decryptPayload(value, key) {
+    const binary = atob(value);
+    let output = '';
+
+    for (let i = 0; i < binary.length; i += 1) {
+        const byte = binary.charCodeAt(i);
+        const keyChar = key.charCodeAt(i % key.length);
+        output += String.fromCharCode(byte ^ keyChar);
+    }
+
+    return output;
+}
+
+function showStaffModal() {
+    if (window.location.hash !== '#staff-login') {
+        return;
+    }
+
+    document.getElementById('staff-modal').classList.add('active');
+    document.getElementById('staff-code-input').focus();
+}
+
+function hideStaffModal() {
+    document.getElementById('staff-modal').classList.remove('active');
+}
+
+function renderStaffMenu(entries) {
+    const menu = document.getElementById('staff-menu');
+    menu.innerHTML = '';
+    const title = document.createElement('div');
+    title.textContent = 'Staff links';
+    title.style.fontWeight = 'bold';
+    title.style.marginBottom = '6px';
+    menu.appendChild(title);
+
+    entries.forEach(entry => {
+        const link = document.createElement('a');
+        link.href = entry.url;
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+        link.textContent = entry.label;
+        menu.appendChild(link);
+
+        if (entry.note) {
+            const note = document.createElement('div');
+            note.className = 'note';
+            note.textContent = entry.note;
+            menu.appendChild(note);
+        }
+    });
+}
+
+async function openStaffMenu() {
+    try {
+        const response = await fetch(STAFF_PAYLOAD_URL);
+        if (!response.ok) {
+            throw new Error('Failed to load encrypted staff payload');
+        }
+
+        const payloadFile = await response.json();
+        const decrypted = decryptPayload(payloadFile.payload, STAFF_ACCESS_CODE);
+        const parsed = JSON.parse(decrypted);
+        renderStaffMenu(parsed.entries || []);
+        document.getElementById('staff-menu').classList.toggle('active');
+    } catch (error) {
+        console.error('Failed to load staff links', error);
+        alert('Staff links could not be loaded.');
+    }
+}
+
+function handleStaffUnlock() {
+    const input = document.getElementById('staff-code-input');
+    if (input.value === STAFF_ACCESS_CODE) {
+        hideStaffModal();
+        openStaffMenu();
+    } else {
+        alert('Incorrect staff access code.');
+    }
+}
+
+function openStaffAccess() {
+    const button = document.getElementById('staff-access-button');
+    if (window.location.hash === '#staff-login') {
+        button.style.display = 'block';
+    } else {
+        button.style.display = 'none';
+        hideStaffModal();
+    }
+}
+
+document.getElementById('staff-access-button').addEventListener('click', () => {
+    showStaffModal();
+});
+document.getElementById('staff-submit-button').addEventListener('click', handleStaffUnlock);
+document.getElementById('staff-close-button').addEventListener('click', hideStaffModal);
+document.getElementById('staff-code-input').addEventListener('keydown', (event) => {
+    if (event.key === 'Enter') {
+        handleStaffUnlock();
+    }
+});
+document.getElementById('staff-modal').addEventListener('click', (event) => {
+    if (event.target.id === 'staff-modal') {
+        hideStaffModal();
+    }
+});
+window.addEventListener('hashchange', openStaffAccess);
+window.addEventListener('load', () => {
+    openStaffAccess();
 });
     </script>
 </body>
